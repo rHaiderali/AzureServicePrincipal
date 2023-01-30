@@ -1,0 +1,3 @@
+Welcome to Azure;
+You're reading the text file saved in azure storage.;
+Have a great day.

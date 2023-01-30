@@ -1,0 +1,46 @@
+﻿@model IEnumerable<TestAzure.Models.BlobDTO>
+
+@{
+    ViewData["Title"] = "Listofstorage";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<h4>Upload File</h4>
+@using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new
+{
+    enctype = "multipart/form-data"
+}))
+{
+        <input type="file" name="FileName" />
+        <input type="submit" />
+}
+<h1>List of storage files using service principal</h1>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Extension)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Extension)
+            </td>
+            <td>
+                    @Html.ActionLink("Delete", "Delete", new { FileName= item.Name+'.'+item.Extension },new { onclick = "return confirm('Are sure wants to delete?');" })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

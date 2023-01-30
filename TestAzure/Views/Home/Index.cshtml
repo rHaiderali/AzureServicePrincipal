@@ -1,0 +1,46 @@
+@model IEnumerable<TestAzure.Models.BlobDTO>
+@{
+    ViewData["Title"] = "Home Page";
+}
+<h4>Upload File</h4>
+@using (Html.BeginForm("UploadFile", "Home", FormMethod.Post, new
+{
+    enctype = "multipart/form-data"
+}))
+{
+    <input type="file" name="FileName" />
+    <input type="submit" />
+}
+<h4>Files List</h4>
+<table class="table">
+    <tr>
+        <th>
+            Name
+        </th>
+        <th>
+            Extension
+        </th>
+        <th>
+            Actions
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                <a href="@Url.Action("Detail","Home",new { FileName= item.Name+'.'+item.Extension })">  @Html.DisplayFor(modelItem => item.Name)</a>
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Extension)
+            </td>
+            <td>
+                @Html.ActionLink("Delete", "Delete", new { FileName= item.Name+'.'+item.Extension },new { onclick = "return confirm('Are sure wants to delete?');" })
+               
+            </td>
+        </tr>
+    }
+
+</table>
+
+
